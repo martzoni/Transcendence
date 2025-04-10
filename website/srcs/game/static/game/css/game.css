@@ -1,0 +1,79 @@
+iframe {
+  width: 90%;
+  height: 90%;
+  border: none;
+}
+
+#scoreboard {
+  font-weight: 300;
+  font-size: 2.5rem;
+  letter-spacing: 10px;
+  color: rgba(47, 56, 151, 0.74);
+  position: relative;
+  top: 2rem;
+}
+
+.game-form-container {
+  border-radius: 12px;
+}
+
+#game-settings-btn {
+  font-size: 3rem;
+  /* color: white; */
+  font-weight: 450;
+  font-variation-settings: "ELGR" 1, "ELSH" 3.6;
+}
+
+#modal-title {
+  font-size: 2.2rem;
+  color: white;
+}
+
+#create-game-btn {
+  font-size: 2.2rem;
+}
+
+.modal-form-label {
+  font-size: 2rem;
+}
+
+.modal-body span {
+  font-size: 2rem;
+}
+
+.hidden {
+  display: none;
+}
+
+#winnerMessage {
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-variation-settings: "ELGR" 1, "ELSH" 0.6;
+  text-transform: uppercase;
+  letter-spacing: 10px;
+  font-size: 7rem;
+  text-shadow: 2px 2px 0 rgb(26 99 221 / 80%), 6px 6px 0 rgb(71 64 194 / 40%),
+    8px 8px 0 rgb(51 82 209 / 20%);
+  margin-left: 0.5vmax;
+  animation: blink 1s infinite, scaleUp 1s ease-in-out;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes scaleUp {
+  0% {
+    transform: scale(0.75);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

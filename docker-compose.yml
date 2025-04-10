@@ -1,0 +1,101 @@
+services:
+  db:
+    container_name: database
+    build:
+      context: ./database
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - django_network
+    env_file:
+      - .env
+
+  redis:
+    container_name: redis
+    image: redis:alpine
+    restart: always
+    networks:
+      - django_network
+
+  web:
+    container_name: django
+    build:
+      context: ./website
+      dockerfile: Dockerfile
+    volumes:
+      - ./website/srcs:/app/srcs
+      - ./blockchain/srcs:/app/blockchain_v
+      - static_volume:/app/srcs/staticfiles
+      - media_volume:/app/srcs/media
+    depends_on:
+      blockchain:
+        condition: service_healthy
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - django_network
+    env_file:
+      - .env
+  
+  nginx:
+    container_name: nginx
+    build:
+      context: ./website
+      dockerfile: dockerfile.nginx
+    volumes:
+      - static_volume:/app/srcs/transendence/static
+      - media_volume:/app/srcs/transendence/media
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - web
+    networks:
+      - django_network
+
+  bot:
+    container_name: bot
+    image: bot:transcendance
+    build:
+      context: ./AI
+      dockerfile: Dockerfile
+    networks:
+      - django_network
+
+  pong:
+    container_name: pong_game
+    image: pong:transcendance
+    build:
+      context: ./pong
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./pong:/app
+    networks:
+      - django_network
+    env_file:
+      - .env
+
+  blockchain:
+    container_name: ganache
+    image: blockchain:transcendance
+    build:
+      context: ./blockchain
+      dockerfile: dockerfile
+    networks:
+      - django_network
+    volumes:
+      - ./blockchain/volumes:/app/volumes
+    env_file:
+      - .env
+
+networks:
+  django_network:
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:

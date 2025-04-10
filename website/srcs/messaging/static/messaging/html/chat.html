@@ -1,0 +1,172 @@
+<div class="container-fluid h-100">
+  <div class="row h-100">
+    <!-- Liste des discussions (droite) -->
+    <div class="col-3 p-3 border-animation">
+      <div class="search-bar mb-3">
+        <!-- <button class="btn btn-outline-secondary w-100" onclick="openSearchUserModal()">Rechercher utilisateur</button> -->
+        <button
+          id="new-conversation-btn"
+          class="btn w-100"
+          onclick="loadConversationModal()"
+        >
+          New chat
+        </button>
+      </div>
+
+      <div class="discussion-list">
+        <h5>Chat with</h5>
+        <!-- Liste des discussions existantes ici -->
+      </div>
+    </div>
+    <!-- Zone de chat active (gauche) -->
+    <div
+      id="chat_window"
+      class="col-9 bg-lightblue p-3 d-flex flex-column d-none"
+    >
+      <div
+        class="chat-header mb-3 d-flex justify-content-between align-items-center"
+      >
+        <h4 id="chat_title"></h4>
+        <div id="interaction-chat">
+          <span
+            id="invite-user-btn"
+            class="icon"
+            data-bs-toggle="modal"
+            data-bs-target="#gameModal"
+            style="cursor: pointer; margin-right: 1rem"
+          >
+            <i class="fa-solid fa-table-tennis-paddle-ball"></i>
+          </span>
+          <span
+            id="block-user-btn"
+            class="icon"
+            onclick="toggleBlockUser()"
+            style="cursor: pointer; display: inline-block"
+          >
+            <i id="muted-icon" class="fas fa-volume-high"></i>
+          </span>
+        </div>
+        <div id="interaction-tour">
+          <button id="lobby-btn" class="btn custom-btn btn-lg btn-outline-light" style="font-size: 1rem;"onclick="goLobby()">
+            Join lobby
+          </button>
+        </div>
+      </div>
+
+      <div class="chat-messages-div flex-grow-1" id="chat-messages-div">
+        <!-- Messages échangés -->
+      </div>
+
+      <!-- Input pour écrire un nouveau message -->
+      <div class="chat-input mt-auto">
+        <div class="input-group d-flex flex-row justify-content-between">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Write a message"
+            id="message-input"
+          />
+          <div class="input-group-append">
+            <button
+              class="btn btn-lg custom-btn btn-outline-light"
+              id="send-message"
+            >
+              Send
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="gameModal"
+  tabindex="-1"
+  aria-labelledby="gameModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div
+          class="game-form-container d-flex p-2 flex-column justify-content-center align-items-center"
+        >
+          <form method="POST" id="game-form">
+            <label class="form-label" for="move_speed_ball"
+              >Ball Move Speed: <span id="move_speed_ball_value">3</span></label
+            ><br />
+            <input
+              type="range"
+              id="move_speed_ball"
+              name="move_speed_ball"
+              min="1"
+              max="5"
+              value="3"
+              class="w-100"
+              oninput="updateValue('move_speed_ball_value', this.value)"
+            />
+            <br /><br />
+
+            <label class="form-label" for="move_speed_paddle"
+              >Paddle Move Speed:
+              <span id="move_speed_paddle_value">4</span></label
+            ><br />
+            <input
+              type="range"
+              id="move_speed_paddle"
+              name="move_speed_paddle"
+              min="1"
+              max="10"
+              value="4"
+              class="w-100"
+              oninput="updateValue('move_speed_paddle_value', this.value)"
+            />
+            <br /><br />
+
+            <br /><br />
+
+            <label class="form-label" for="power">Power:</label>
+            <input
+              type="checkbox"
+              id="power"
+              name="power"
+              onchange="updateCheckboxValue('power_value', this.checked)"
+            />
+            <span id="power_value" class="form-label">Off</span><br /><br />
+            <!-- <label class="form-label" for="bot_difficulty">Bot Difficulty: <span id="bot_difficulty_value">5</span></label><br />
+				  <input type="range" id="bot_difficulty" name="bot_difficulty" min="1" max="10" value="5" class="w-100" oninput="updateValue('bot_difficulty_value', this.value)" />
+				  <br /><br /> -->
+
+            <label class="form-label" for="actual_win_number"
+              >Choose a winning number:
+              <span id="actual_win_number_value">5</span></label
+            ><br />
+            <input
+              type="range"
+              id="actual_win_number"
+              name="actual_win_number"
+              min="1"
+              max="6"
+              step="1"
+              value="3"
+              oninput="updateWinNumber()"
+              class="w-100"
+            />
+            <input type="hidden" id="win_number" name="win_number" value="5" />
+            <br /><br />
+            <button
+              class="custom-btn btn btn-outline-light btn-lg w-100"
+              data-bs-dismiss="modal"
+              data-bs-target="#gameModal"
+              type="submit"
+            >
+              Create
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
