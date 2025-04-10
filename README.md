@@ -54,6 +54,14 @@ ft_transcendence/
 - PostgreSQL
 - Ganache (for blockchain testing)
 
+### Environment Variables
+
+This project requires a `.env` file to configure environment-specific settings. An example file `.env.example` is provided in the root directory.
+
+1. Copy the example file:
+   ```bash
+   cp .env.example .env
+
 ### Installation
 
 1. Clone the repository
