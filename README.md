@@ -4,7 +4,7 @@ A multiplayer Pong game with modern features such as WebSocket communication, bl
 
 ## 📸 Demo
 
-![Transcendence Demo](.github/assets/demo.gif)
+![Transcendence Demo](.github/demo.gif)
 
 ## 🚀 Features
 
